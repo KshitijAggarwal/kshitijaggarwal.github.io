@@ -23,7 +23,7 @@ Deep Reinforcement learning is a technique that uses Deep Neural Networks to sol
 The following post is a must read for good introduction to Deep Reinforcement Learning - [Demystifying Deep Reinforcement Learning](https://www.nervanasys.com/demystifying-deep-reinforcement-learning/)
 
 # What is A3C ?
-Till 2016, Deep Q-learning was the got to method to solve solve reinforcement learning problems. In february 2016, A3C refers to Asynchronous advantage actor-critic algorithm for deep reinforcement learning. It was proposed over the famous DQN network for playing atari games, first made by DeepMind back in 2013. DQN was the first RL algorithm which was able to play games successfully because of which Google bought DeepMind itself. However it had some drawbacks which have been solved by A3C-
+Till 2016, Deep Q-learning was the got to method to solve reinforcement learning problems. In february 2016, A3C refers to Asynchronous advantage actor-critic algorithm for deep reinforcement learning. It was proposed over the famous DQN network for playing atari games, first made by DeepMind back in 2013. DQN was the first RL algorithm which was able to play games successfully because of which Google bought DeepMind itself. However it had some drawbacks which have been solved by A3C-
 
 * DQN had a very large training time (~1 week on a GPU) whereas basic A3C takes 1 day to train on a CPU. (infact training time for Flappy Bird game in this project was just 6 hours !!)
 * DQN used experience replay for getting good convergence which requires a lot of memory. A3C use multiple threads for this purpose which eliminates huge memory requirement.
