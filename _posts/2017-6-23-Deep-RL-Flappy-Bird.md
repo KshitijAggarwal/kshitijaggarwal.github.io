@@ -2,7 +2,9 @@
 layout: post
 title: Deep Reinforcement Learning to play Flappy Bird using A3C algorithm
 ---
-![](images/animation.gif)
+{:refdef: style="text-align: center;"}
+![](/images/animation1.gif)
+{: refdef}
 
 # Overview
 This project uses Asynchronous advantage actor-critic algorithm (A3C) to play Flappy Bird using Keras. The details of this algorithm are mentioned in [this paper](https://arxiv.org/pdf/1602.01783.pdf) by Deep Mind. The code for this project can be found in [this github repository.](https://github.com/shalabhsingh/A3C_Keras_FlappyBird)
@@ -88,7 +90,9 @@ Interesting readers can modify the reward function in "game/wrapped_flappy_bird.
 
 ### Image pre-processing
 
+{:refdef: style="text-align: center;"}
 ![](/images/bird.jpg)
+{: refdef}
 
 In order to make the code train faster, it is vital to do some image processing. Here are the key elements:
 
@@ -138,8 +142,6 @@ The exact architecture is following : The input to the neural network consists o
 1. First is the policy output containing one neuron for each possible action (flap or no flap). The value in each of these neurons indicates the probability of that particular action to be taken, for the given input. The sum of all the outputs of this type is hence 1. However in this game, as there are only 2 outputs, we will use only one output unit indicating the probability of flap. The probability of not flapping is then one minus the output unit value. Sigmoid activation is used for this output so as to restrict the output value in valid range of probabilities [0,1].
 
 2. The second type of output is critic output. For each input to the neural network, the network also outputs the expected reward from these states. The expected reward value acts a feedback to the network. If an action results in a reward higher than that predicted by the critic, then the weights of the neural network are tweaked in a manner so that this action is promoted, the next time a similar state occurs. Similarly, actions yielding less reward than that predicted by the critic are less likely to occur in feature. This is the method that A3C uses to promote higher rewards actions in the future.
-
-As the first category of outputs have range between 0 and 1, the loss used is categorical cross entropy. For the second category of outputs, the loss used is mean squared error (MSE). 
 
 # Parallel Processing
 Finally, now as our model is ready we are need to define parallel threads for updates. In this project, 16 parallel threads have been defined, each of which runs until terminal it true (bird died) or until ![](http://latex.codecogs.com/gif.latex?t_%7Bmax%7D) steps have been performed, before weight updates are backpropogated. The value of ![](http://latex.codecogs.com/gif.latex?t_%7Bmax%7D) used is 5 steps and hence the maximum number of inputs in each batch is 16x5 = 80.
