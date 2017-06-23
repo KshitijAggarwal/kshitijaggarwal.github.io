@@ -1,13 +1,14 @@
 ---
 layout: post
 title: Deep Reinforcement Learning to play Flappy Bird using A3C algorithm
+-disqus: true
 ---
 {:refdef: style="text-align: center;"}
 ![](/images/animation1.gif)
 {: refdef}
 
 # Overview
-This project uses Asynchronous advantage actor-critic algorithm (A3C) to play Flappy Bird using Keras. The details of this algorithm are mentioned in [this paper](https://arxiv.org/pdf/1602.01783.pdf) by Deep Mind. The code for this project can be found in [this github repository.](https://github.com/shalabhsingh/A3C_Keras_FlappyBird)
+This project uses Asynchronous advantage actor-critic algorithm (A3C) to play Flappy Bird using Keras deep learning library. The details of this algorithm are mentioned in [this paper](https://arxiv.org/pdf/1602.01783.pdf) by Google DeepMind. The code for this project can be found in [this github repository.](https://github.com/shalabhsingh/A3C_Keras_FlappyBird)
 
 # Installation Dependencies
 * Python 3.5
@@ -16,62 +17,48 @@ This project uses Asynchronous advantage actor-critic algorithm (A3C) to play Fl
 * scikit-image
 
 # How to Run?
-Clone the repository or download it. To test the pretrained model, run the {% highlight python %}test.py{% endhighlight %} file. To retrain the model from scratch, run the {% highlight python %}train_network.py{% endhighlight %} script. 
+Clone the repository or download it. To test the pretrained model, run the ```test.py``` file. To retrain the model from scratch, run the ```train_network.py``` script. 
 
 The trained models at different stages will be saved in "saved_models" folder.
 
 # What is Deep Reinforcement Learning?
-Deep Reinforcement learning is a technique that uses Deep Neural Networks to solve Reinforcement learning problems. Reinforcement learning is a machine learning method that lies somewhere between supervised and unsupervised learning. Whereas in supervised learning one has a target label for each training example and in unsupervised learning one has no labels at all, in reinforcement learning one has sparse and time-delayed labels – the rewards. Based only on those rewards the agent (bird in this problem) has to learn to behave in the environment (flappy bird game).
+Deep Reinforcement learning is a technique that uses deep neural networks to solve Reinforcement learning problems. Reinforcement learning is a machine learning method that lies somewhere between supervised and unsupervised learning. Whereas in supervised learning one has a target label for each training example and in unsupervised learning one has no labels at all, in reinforcement learning one has sparse and time-delayed labels – the rewards. Based on these rewards the agent has to learn to behave in the given environment.
 
-The following post is a must read for good introduction to Deep Reinforcement Learning - [Demystifying Deep Reinforcement Learning](https://www.nervanasys.com/demystifying-deep-reinforcement-learning/)
+The following post is a must read for good introduction to Deep Reinforcement Learning -
+[Demystifying Deep Reinforcement Learning](https://www.nervanasys.com/demystifying-deep-reinforcement-learning/)
 
 # Why A3C ?
-Till 2016, Deep Q-learning was the go to method for solving reinforcement learning problems. Deep Q-learning was proposed by DeepMind back in 2013. Deep Q-learning was the first RL algorithm which was able to play games successfully and it became so popular that Google bought DeepMind itself. In february 2016, Google DeepMind proposed another set of algorithms for playing atari games, which were better than Deep Q-learning. The most successful of those algorithms is known as A3C which refers to Asynchronous advantage actor-critic algorithm for deep reinforcement learning. The advantages that A3C had over Deep Q learning are the following-
+Till early 2016, Deep Q-learning was the go to method for playing games through reinforcement learning. Deep Q-learning was proposed by DeepMind back in 2013. Deep Q-learning was the first RL algorithm which was able to play games successfully and it became so popular that Google bought DeepMind itself. In february 2016, Google DeepMind proposed another set of algorithms for playing atari games, which were better than Deep Q-learning. The most successful of those algorithms is known as Asynchronous advantage actor-critic algorithm (A3C). The advantages that A3C has over Deep Q-learning are as follows-
 
-* Deep Q learning had a very large training time (~1 week on a GPU) whereas basic A3C takes 1 day to train on a CPU. (training time for Flappy Bird game in this project is barely 6 hours on a CPU !!)
-* Deep Q learning used experience replay for getting good convergence which requires a lot of memory. A3C use multiple threads for this purpose which eliminates huge memory requirement.
+* Deep Q learning has a very large training time (~1 week on a GPU) whereas basic A3C takes 1 day to train on a CPU. (training time for Flappy Bird game in this project is barely 6 hours on a CPU !!)
+* Deep Q learning uses experience replay for getting good convergence, which requires a lot of memory. A3C use multiple threads for this purpose which eliminates huge memory requirement.
 * Deep Q learning is an off-policy learning algorithm that can update from data generated by an older policy (stored in experience replay), even though a better policy may have been discovered later. On the other hand, A3C is an on-policy method in which updates are made from data generated from current policy only.
 
 However because of better exploration by DQN, it generally settles at global minima whereas A3C might settle at a local minima leading to sub-optimal results. 
 
-A complete blog post can be written on Q-learning itself so as to explain technical terms like experience replay etc., however I won't delve into those topics. For knowing more about Deep Q learning and using it to play Flappy bird, see this blog post by Ben Lau - [Using Keras and Deep Q-Network to Play FlappyBird](https://yanpanlau.github.io/2016/07/10/FlappyBird-Keras.html).
+A complete blog post can be written on Q-learning itself so as to explain technical terms like experience replay etc., however I won't delve into those topics. For knowing more about Deep Q learning and using it to play Flappy bird, see this excellent blog post by Ben Lau - [Using Keras and Deep Q-Network to Play FlappyBird](https://yanpanlau.github.io/2016/07/10/FlappyBird-Keras.html). A rough understanding of Deep Q-learning approach is a must for proceeding further.
 
-
-///////
-**Learning Resources-**
-
-1. For theoretical and implementation details of how a DQN works, see this blog page- https://yanpanlau.github.io/2016/07/10/FlappyBird-Keras.html
-2. For theoretical and implementation details of how an A3C works, see this blog page- https://jaromiru.com/2017/03/26/lets-make-an-a3c-implementation/
-///////////
+**Off policy v/s On policy methods**
+In the above few lines I have repeatedly mentioned about Off policy and On policy methods so I will explain what they are. If the updates in the neural network model performed by a method is partially/completely independent of the policy (actions taken), then it is an off policy method. Else, it is an on policy method. 
 
 # Asynchronous algorithms for Deep Reinforcement Learning
-The new approach to solve Reinforcement Learning problems involve the use of asynchronous variants of standard Reinforcement Learning algorithms. Instead of experience replay, execute multiple agents are executed in parallel asynchronously, on multiple instances of the environment. This parallelism also decorrelates the agents’ data into a more stationary process, since at any given time-step the parallel agents will be experiencing a variety of different states. This simple idea enables a much larger spectrum of fundamental on-policy RL algorithms, such as Sarsa, n-step methods, and actorcritic methods, as well as off-policy RL algorithms such as Q-learning, to be applied robustly and effectively using deep neural networks. The different algorithms used are as follows-
+The new approach to solve Reinforcement Learning problems involve the use of asynchronous variants of standard Reinforcement Learning algorithms. Instead of experience replay, multiple agents are executed in parallel asynchronously, on multiple instances of the environment. This parallelism also decorrelates the agent's data into a more stationary process, since at any given time-step the parallel agents will be experiencing a variety of different states. This simple idea enables a much larger spectrum of fundamental on-policy RL algorithms, such as Sarsa, n-step methods, and actor-critic methods, as well as off-policy RL algorithms such as Q-learning, to be applied robustly and effectively using deep neural networks. A brief introduction to these algorithms is as follows-
 
-1. **Asynchronous one step Q-learning** - This is an off policy learning algorithm as the updates it makes are independent of the actions taken, as the we assume that maximum Q value action will be taken in the next frame. It is exactly similar to standard Deep Q learning, other than the fact that it uses asynchronous parallel agents rather that experience replay for getting statiscally independent inputs for making updated to the neural network.
+1. **Asynchronous one step Q-learning** - This is an off policy learning algorithm as the updates it makes are independent of the actions taken becasue we assume that action with maximum Q-value will be taken in the next step. It is exactly similar to standard Deep Q learning, other than the fact that it uses asynchronous parallel agents rather that experience replay for getting statiscally independent inputs for making updates to the neural network.
 
-/////
-The algorithm performs actions based on \epsilon greedy policy (a random action is chosen with a probability \epsilon and an action predicted by the neural net is chosen with probability 1- \epsilon). the rewards obtained in that frame are measured and error is taken as
+2. **Asynchronous one-step SARSA** - It is same as asynchronous one step Q-learning except the fact that it uses an on policy approach to perform updates. In general one step SARSA leads to better performance that one step Q learning but it may well depend on case to case.
 
-E[r + gamma* max_a ( Q(s',a') ) - Q(s, a) ]. A large chunk of such frames and actions are stored in an experience replay store, from where a random mini-batch of experiences are sampled each time after some time to update weights. However over here asynchronous methods instead of experience replay have been used. The epsilon value keeps decreasing gradually.
-/////
+3. **Asyncronous n-Step Q-learning** - It is same as asnchronous one step Q-learning except the fact that it uses upto n steps in future to calculate the expected reward in the present step because of which updates in policy are transferred back to earlier states quickly.
 
-2. **Asynchronous one-step SARSA** - It is same as Asynchronous one step Q learning except the fact that it uses an on policy approach to perform updates. In general one step SARSA leads to better performance that one step Q learning but it may well depend on case to case.
-
-3. **Asyncronous n-Step Q-learning** - It is same as 1 step Q learning except the fact that it uses upto n steps in future to calculate the expected reward in the present step because of which updates in policy are transferred back to earlier states quickly.
-
-4. **Asynchronous advantage actor-critic** - Asynchronous advantage actor-critic (A3C) is the fastest algorithm to train, among all. It has 2 versions, one that uses a Feed Forward Fully connected layer in the end of the network and another one that uses a LSTM (Long Short term memory) layer. This uses a policy based approach along with a critic which promotes or criticises any action taken, depending upon how much the actual reward is in comparison to the average reward it expected out of that state.
-
-///
-The update is grad( sum(Advantage * log p(a|theta)) ) + beta * sum(entropy) where advantage is actual reward - expected reward. the secnd term is the regularization term which prevents premature convergence. The policy and critic, both use the same network with 2 different outputs and respective losses. Optimizer used in all cases is RMSprop with initial learning rate of 7e-4 which is annealed to 0 gradually.
-////
+4. **Asynchronous advantage actor-critic** - Asynchronous advantage actor-critic (A3C) is the fastest algorithm to train, among all. It has 2 versions, one that uses a Feed Forward Fully connected layer in the end of the network and another one that uses a LSTM (Long Short term memory) layer. We will use the first variant over here. This uses a policy based approach along with a critic which promotes or criticises any action taken, depending upon how much the actual reward is in comparison to the expected for that state.
 
 # Code Explanation
 
 Now let us go through the code line by line. The code simply does the following:
 
-1. The code receives the Game Screen Input in the form of a pixel array
-2. The code does some image pre-processing to convert the image into required format for feeding to the neural network
-3. The processed image will be fed into the neural network (Convolution Neural Network), and the network will then decide the best action to execute (Flap or Not Flap)
+1. The code receives the Game Screen Input in the form of a pixel array.
+2. The code does some image pre-processing to convert the image into required format for feeding to the neural network.
+3. The processed image will be fed into a Convolutional neural network, and the network will then decide the best action to execute (Flap or Not Flap)
 
 The network will be trained for a lot of times, to maximize the future expected reward.
 
@@ -84,9 +71,9 @@ import wrapped_flappy_bird as game
 x_t, r_t, terminal = game_state[thread_id].frame_step(a_t)
 ```
 
-The idea is quite simple, the input is 'a_t' (0 represent don't flap, 1 represent flap), the API will give you the next frame 'x_t', the reward 'r_t' (0.1 if alive, +1 if pass the pipe, -1 if die) and 'terminal' is a boolean flag indicates whether the game is FINISHED or NOT. As there are multiple threads in which the game is running, 'thread_id' denotes the thread of the running game.
+The idea is quite simple, the input is ```a_t``` (0 represent no flap, 1 represent flap) and the API will give you the next frame ```x_t```, the reward ```r_t``` (0.1 if alive, +1.5 if it passes the pipe, -1 if it dies) and ```terminal``` is a boolean flag which indicates whether the game is FINISHED or NOT. As there are multiple threads in which the game is running, 'thread_id' denotes the thread of the running game.
 
-Interesting readers can modify the reward function in "game/wrapped_flappy_bird.py", under the function **def frame_step(self, input_actions)**
+Interested readers can modify the reward function in "game/wrapped_flappy_bird.py", under the function **def frame_step(self, input_actions)** in the github repository.
 
 ### Image pre-processing
 
@@ -97,10 +84,10 @@ Interesting readers can modify the reward function in "game/wrapped_flappy_bird.
 In order to make the code train faster, it is vital to do some image processing. Here are the key elements:
 
 1. Convert the color image into grayscale.
-2. Crop down the image size into 84x84 pixel as suggessted by the paper.
+2. Crop down the image size into 84x84 pixel size as suggessted in the paper.
 3. Stack 4 frames together before feeding into neural network. 
 
-Why is it needed to stack 4 frames together? This is one way for the model to be able to infer the velocity information of the bird.
+Why is it needed to stack 4 frames together? This is one way for the model to be able to infer the movement of the bird.
 
 ```python
 def preprocess(image):
@@ -119,7 +106,6 @@ Now as we have processed the input into the model, we can describe the model its
 ```python
 def buildmodel():
 	print("Model buliding begins")
-
 	model = Sequential()
 	keras.initializers.RandomUniform(minval=-0.1, maxval=0.1, seed=None)
 
@@ -137,14 +123,14 @@ def buildmodel():
 	return model
 ```
 
-The exact architecture is following : The input to the neural network consists of an 80x80x4 images. The first hidden layer convolves 16 filters of 8x8 with stride 4 and applies ReLU activation function. The 2nd layer convolves 32 filters of 4 x 4 with stride 2 and applies ReLU activation function. All the layers in second layer are then put side by side (flattened) and a final hidden layer, which is fully-connected consisting of 256 ReLU units is added upon it. The output layer following the final hidden layer has two types of output-
+The exact architecture is following : The input to the neural network consists of 84 x 84 x 4 images. The first hidden layer convolves 16 filters of 8x8 with stride 4 and applies ReLU activation function. The 2nd layer convolves 32 filters of 4 x 4 with stride 2 and applies ReLU activation function. All the layers in second layer are then put side by side (flattened) and a final hidden layer, which is fully-connected consisting of 256 ReLU units is added upon it. The output layer following the final hidden layer has two types of output-
 
-1. First is the policy output containing one neuron for each possible action (flap or no flap). The value in each of these neurons indicates the probability of that particular action to be taken, for the given input. The sum of all the outputs of this type is hence 1. However in this game, as there are only 2 outputs, we will use only one output unit indicating the probability of flap. The probability of not flapping is then one minus the output unit value. Sigmoid activation is used for this output so as to restrict the output value in valid range of probabilities [0,1].
+1. **Policy Output :** This output contains one neuron for each possible action. The value in each of these neurons indicates the probability of that particular action to be taken. The sum of all the outputs of this type is hence 1. However in this game, as there are only 2 possible actions, we will use only one output unit indicating the probability of flap. The probability of not flapping is then one minus the probability of flapping. Sigmoid activation is used for this output so as to restrict the output value in valid range of probabilities [0,1].
 
-2. The second type of output is critic output. For each input to the neural network, the network also outputs the expected reward from these states. The expected reward value acts a feedback to the network. If an action results in a reward higher than that predicted by the critic, then the weights of the neural network are tweaked in a manner so that this action is promoted, the next time a similar state occurs. Similarly, actions yielding less reward than that predicted by the critic are less likely to occur in feature. This is the method that A3C uses to promote higher rewards actions in the future.
+2. **Critic Output :** The second type of output is critic output. For each state input to the neural network, the network also outputs the expected reward from these states. The expected reward value acts a feedback to the network. If an action results in a reward higher than that predicted by the critic, then the weights of the neural network are tweaked in a manner so that this action is promoted, the next time a similar state occurs. Similarly, actions yielding less reward than that predicted by the critic are less likely to occur in future. This is the method that A3C uses to promote higher reward actions in the future.
 
-# Parallel Processing
-Finally, now as our model is ready we are need to define parallel threads for updates. In this project, 16 parallel threads have been defined, each of which runs until terminal it true (bird died) or until ![](http://latex.codecogs.com/gif.latex?t_%7Bmax%7D) steps have been performed, before weight updates are backpropogated. The value of ![](http://latex.codecogs.com/gif.latex?t_%7Bmax%7D) used is 5 steps and hence the maximum number of inputs in each batch is 16x5 = 80.
+# Multithreading
+Finally, now as our model is ready we are ready to define parallel threads for updates. In this project, 16 parallel threads have been defined, each of which runs until ```terminal``` is true (bird died) or until ![](http://latex.codecogs.com/gif.latex?t_%7Bmax%7D) steps have been performed, before weight updates are backpropogated. The value of ![](http://latex.codecogs.com/gif.latex?t_%7Bmax%7D) used is 5 steps and hence the maximum number of inputs in each batch is 16 x 5 = 80.
 
 ```python
 class actorthread(threading.Thread):
@@ -174,9 +160,9 @@ class actorthread(threading.Thread):
 		threadLock.release()
 ```
 
-A class actor thread is defined which maintains information about each thread. Each thread has a thread_id, and is initialized with an initial state s_t (s_t contains 4 stacked game frames) to be given as input to the neural network. FIRST_FRAME is a boolean variable which stores if the given state s_t is the first state of a new game, or is the state of an old game until which the game was played, before the last update. Function threadLock.acquire() is used to force the thread to run synchronously and threadLock.release() is used to release the lock when it is no longer required (all threads have finished execution).
+A class ```actorthread``` is defined which maintains information about each thread. Each thread has a thread_id, and is initialized with an initial state s_t (s_t contains 4 stacked game frames) to be given as input to the neural network. FIRST_FRAME is a boolean variable which indicates if we are going to start playing a new game. This is because every time the bird dies and the game ends, it restarts. Function ```threadLock.acquire()``` is used to force the threads to run synchronously and ```threadLock.release()``` is used to release the lock when it is no longer required (all threads have finished execution).
 
-Each thread comes to action when it calls runprocess function. The major components of runprocess function are mentioned below-
+Each thread comes to action when it calls ```runprocess``` function. The major components of this function are mentioned below-
 
 ```python
 def runprocess(thread_id, s_t, FIRST_FRAME, t):
@@ -192,7 +178,6 @@ def runprocess(thread_id, s_t, FIRST_FRAME, t):
 		if FIRST_FRAME == False:
 			with graph.as_default():
 				out = model.predict(s_t)[0]			
-				intermediate_output = intermediate_layer_model.predict(s_t)
 			no = np.random.rand()
 			a_t = [0,1] if no < out else [1,0]  #stochastic action
 			#a_t = [0,1] if 0.5 <y[0] else [1,0]  #deterministic action
@@ -227,9 +212,9 @@ def runprocess(thread_id, s_t, FIRST_FRAME, t):
 	return t, state_store, output_store, r_store, critic_store, FIRST_FRAME
 ```
 
-The runprocess function, starts with defining the while loop in which each frame is processed. For each frame the action choosen is flap with a probability equal to the policy output (first output type). However if it is the first frame of a new game, the action choosen is not to flap, by default. This is done because we still cannot stack 4 consecutive frames in s_t to give as input to the network. Hence all the 4 frames in s_t are taken to be same as the first frame and default action of no flap is choosen as the network doesn't have any knowledge of bird movement from those frames.
+The ```runprocess``` function, starts with defining the while loop in which each frame is processed. For each frame the action choosen is flap with a probability equal to the policy output (first output type). However if it is the first frame of a new game, the action choosen is not to flap, by default. This is done because we still cannot stack 4 _**consecutive frames**_ in s_t to give as input to the network. Hence all the 4 frames in s_t are taken to be same as the first frame and default action of no flap is choosen as the network doesn't have any knowledge of bird movement from those frames.
 
-The thread runs for a maximum of $$ t_{max} $$ steps and at each step, the state, action taken, reward obtained at each step and expected reward predicted by critic networks are stored in arrays- state_store, output_store, r_store and critic_store respectively. Later, these arrays for each thread are concatenated and then send to the model for training. The actual discounted reward value for each frame in the thread is calculated by rewards obtained in each step using the followin formula-
+The thread runs for a maximum of ![](http://latex.codecogs.com/gif.latex?t_%7Bmax%7D) steps and at each step, the state, action taken, reward obtained at each step and expected reward predicted by critic networks are stored in arrays- ```state_store```, ```output_store```, ```r_store``` and ```critic_store``` respectively. Later, these arrays for each thread are concatenated and then send to the model for training. The actual discounted reward value for each frame in the thread is calculated by rewards obtained in future steps using the following formula-
 
 ![equation](http://latex.codecogs.com/gif.latex?r%28s_t%29%20%3D%20r%28s_t%29%20&plus;%20%5Cgamma%20*%20r%28s_%7Bt&plus;1%7D%29)
 
@@ -240,15 +225,15 @@ I hope that the model definition and thread configuration is clearly understood 
 
 ![equation](http://latex.codecogs.com/gif.latex?L_%7Bpolicy%7D%20%3D%20%5Cfrac%7B1%7D%7Bn%7D%20%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%20%5Clog%20%5Cpi%28a_t%7Cs_t%3B%20%5Ctheta%29%20A%28s_t%2C%20a_t%3B%5Ctheta%20%2C%20%7B%5Ctheta%7D_v%20%29)
 
-where n is the batch size, ![](http://latex.codecogs.com/gif.latex?%5Ctheta) and ![](http://latex.codecogs.com/gif.latex?%7B%5Ctheta%7D_v) are the network parameters and ![](http://latex.codecogs.com/gif.latex?A%28s_t%2C%20a_t%3B%5Ctheta%20%2C%20%7B%5Ctheta%7D_v%20%29) refer to the advantage function which is the difference between the actual reward obtained and reward predicted by the critic network. As it can be observed, advantage can both be positive as well as negative. When the advantage is positive, it means that the policy taken is better than expected and hence a positive advantage proportional to the goodness of the policy is multiplied. When the advantage is negative, it means that the policy is not good and hence a negative advantage is multiplied, so that the contribution to weight updates performed by these states is reversed and the network will adopt this policy with a lesser probability, the next time a similar state is encountered.
+where n is the batch size, ![](http://latex.codecogs.com/gif.latex?%5Ctheta) and ![](http://latex.codecogs.com/gif.latex?%7B%5Ctheta%7D_v) are the network parameters and ![](http://latex.codecogs.com/gif.latex?A%28s_t%2C%20a_t%3B%5Ctheta%20%2C%20%7B%5Ctheta%7D_v%20%29) is the **advantage function, which is the difference between the actual reward obtained and reward predicted by the critic network.** As it can be observed, advantage can both be positive as well as negative. When the advantage is positive, it means that the policy taken is better than expected and hence a positive advantage proportional to the goodness of the policy is multiplied to the loss. When the advantage is negative, it means that the policy is not good and hence a negative advantage is multiplied, so that the contribution to weight updates performed by these states is reversed and the network will adopt this policy with a lesser probability, the next time a similar state is encountered.
 
 The loss for the critic network is-
 
-![](http://latex.codecogs.com/gif.latex?%5Cfrac%7B1%7D%7Bn%7D%20%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%20%7B%28r%28s_t%29-V%28s_t%3B%5Ctheta_v%29%29%7D%5E%7B2%7D)
+![](http://latex.codecogs.com/gif.latex?L_%7Bcritic%7D%20%3D%20%5Cfrac%7B1%7D%7B2n%7D%20%5Csum_%7B1%7D%5E%7Bn%7D%20%7B%28r%28s_t%29-V%28s_t%3B%7B%5Ctheta%7D_v%29%29%7D%5E%7B2%7D)
 
 where ![](http://latex.codecogs.com/gif.latex?r%28s_t%29) is the actual reward and ![](http://latex.codecogs.com/gif.latex?V%28s_t%3B%7B%5Ctheta%7D_v%29) is the predicted critic reward.
 
-RMSprop optimizer is used for updating the weights of the network. The learning rate used is 7e-4 which is decreased by 3.2e-8 each epoch until it reaches 0. Other hyperparameters are mentioned below-
+RMSprop optimizer is used for updating the weights of the network. The ```learning rate``` used is 7e-4 which is decreased by 3.2e-8 in each epoch until it reaches 0. Other hyperparameters are mentioned below-
 
 * No. of threads = 16
 * Frames/thread used for each update = 5
@@ -256,7 +241,9 @@ RMSprop optimizer is used for updating the weights of the network. The learning 
 * RMSProp cache decay rate = 0.99
 * Entropy regularization, as suggested by the paper has not been used. However I believe that using it, could lead to better performance of the model.
 
-The best model I have got is still not very good but is able to cross 5 pipes on average (i.e. it has developed a good understanding of physics and knows when to flap and when not to). To train better models, tinkering with above hyperparameters can be beneficial.
+The best model I have got is still not very good, but is able to cross 5 pipes on average (i.e. it has developed a good understanding of physics and knows when to flap and when not to). To train better models, tinkering with above hyperparameters can be beneficial.
+
+The main aim of this blog post is to give a gentle introduction to Deep Reinforcement Learning and to demonstrate an implementation of a game AI using A3C algorithm. I hope that it was a good learning experience. If you liked the post or have any doubts/suggesstions please mention in the comments below.
 
 # Disclaimer
 This work is based on the following repos and blogs-
@@ -266,29 +253,3 @@ This work is based on the following repos and blogs-
 3. http://karpathy.github.io/2016/05/31/rl/
 4. https://yanpanlau.github.io/2016/07/10/FlappyBird-Keras.html
 5. https://jaromiru.com/2017/03/26/lets-make-an-a3c-implementation/
-
-{% if page.comments %}
-<div id="disqus_thread"></div>
-<script>
-    /**
-     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-     */
-    /*
-    var disqus_config = function () {
-        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    */
-    (function() {  // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        
-        s.src = '//deepben.disqus.com/embed.js';
-        
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-{% endif %}
