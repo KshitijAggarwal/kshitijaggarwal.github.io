@@ -103,6 +103,7 @@ In order to make the code train faster, it is vital to do some image processing.
 Why is it needed to stack 4 frames together? This is one way for the model to be able to infer the velocity information of the bird.
 
 {% highlight python %}
+
 def preprocess(image):
 	image = skimage.color.rgb2gray(image)
 	image = skimage.transform.resize(image, (IMAGE_ROWS,IMAGE_COLS), mode = 'constant')	
@@ -117,6 +118,7 @@ The input to the preprocess function is a single frame **image** , which is resi
 Now as we have processed the input into the model, we can describe the model itself now-
 
 {% highlight python %}
+
 def buildmodel():
 	print("Model buliding begins")
 
@@ -141,8 +143,96 @@ The exact architecture is following : The input to the neural network consists o
 
 1. First is the policy output containing one neuron for each possible action (flap or no flap). The value in each of these neurons indicates the probability of that particular action to be taken, for the given input. The sum of all the outputs of this type is hence 1. However in this game, as there are only 2 outputs, we will use only one output unit indicating the probability of flap. The probability of not flapping is then one minus the output unit value. Sigmoid activation is used for this output so as to restrict the output value in valid range of probabilities [0,1].
 
-2. 
+2. The second type of output is critic output. For each input to the neural network, the network also outputs the expected reward from these states. The expected reward value acts a feedback to the network. If an action results in a reward higher than that predicted by the critic, then the weights of the neural network are tweaked in a manner so that this action is promoted, the next time a similar state occurs. Similarly, actions yielding less reward than that predicted by the critic are less likely to occur in feature. This is the method that A3C uses to promote higher rewards actions in the future.
 
+As the first category of outputs have range between 0 and 1, the loss used is categorical cross entropy. For the second category of outputs, the loss used is mean squared error (MSE). 
+
+# Parallel Processing
+Finally, now as our model is ready we are need to define parallel threads for updates. In this project, 16 parallel threads have been defined, each of which runs until terminal it true (bird died) or until for $$ {t}_{max} $$  steps have been performed, before weight updates are backpropogated. The value of $$ {t}_{max} $$ used is 5 steps and hence the maximum number of inputs in each batch is 16x5 = 80.
+
+{% highlight python %}
+
+class actorthread(threading.Thread):
+	def __init__(self,thread_id, s_t, FIRST_FRAME, t):
+		threading.Thread.__init__(self)
+		self.thread_id = thread_id
+		self.s_t = s_t
+		self.FIRST_FRAME = FIRST_FRAME
+		self.t = t
+
+	def run(self):
+		global episode_output
+		global episode_r
+		global episode_critic
+		global episode_state
+
+		threadLock.acquire()
+		self.t, state_store, output_store, r_store, critic_store, self.FIRST_FRAME = runprocess(self.thread_id, self.s_t, self.FIRST_FRAME, self.t)
+		self.s_t = state_store[-1]
+		self.s_t = self.s_t.reshape(1, self.s_t.shape[0], self.s_t.shape[1], self.s_t.shape[2])
+
+		episode_r = np.append(episode_r, r_store)
+		episode_output = np.append(episode_output, output_store)
+		episode_state = np.append(episode_state, state_store, axis = 0)
+		episode_critic = np.append(episode_critic, critic_store)
+
+		threadLock.release()
+{% endhighlight %}
+
+A class actor thread is defined which maintains information about each thread. Each thread has a thread_id, and is initialized with an initial state s_t (s_t contains 4 stacked game frames) to be given as input to the neural network. FIRST_FRAME is a boolean variable which stores if the given state s_t is the first state of a new game, or is the state of an old game until which the game was played, before the last update. Function threadLock.acquire() is used to force the thread to run synchronously and threadLock.release() is used to release the lock when it is no longer required (all threads have finished execution).
+
+Each thread comes to action when it calls runprocess function. The major components of runprocess function are mentioned below-
+
+{% highlight python %}
+def runprocess(thread_id, s_t, FIRST_FRAME, t):
+	global T
+	global a_t
+	global model
+
+	while t-t_start < t_max and terminal == False:
+		t += 1
+		T += 1
+		intermediate_output = 0
+		
+		if FIRST_FRAME == False:
+			with graph.as_default():
+				out = model.predict(s_t)[0]			
+				intermediate_output = intermediate_layer_model.predict(s_t)
+			no = np.random.rand()
+			a_t = [0,1] if no < out else [1,0]  #stochastic action
+			#a_t = [0,1] if 0.5 <y[0] else [1,0]  #deterministic action
+
+		x_t, r_t, terminal = game_state[thread_id].frame_step(a_t)
+		x_t = preprocess(x_t)
+
+		if FIRST_FRAME:
+			s_t = np.concatenate((x_t, x_t, x_t, x_t), axis=3)
+			FIRST_FRAME = False
+		else:
+			s_t = np.append(x_t, s_t[:, :, :, :3], axis=3)
+
+		y = 0 if a_t[0] == 1 else 1
+		
+		with graph.as_default():
+			critic_reward = model.predict(s_t)[1]
+
+		r_store = np.append(r_store, r_t)
+		state_store = np.append(state_store, s_t, axis = 0)
+		output_store = np.append(output_store, y)
+		
+	if terminal == False:
+		r_store[len(r_store)-1] = critic_store[len(r_store)-1]
+	else:
+		r_store[len(r_store)-1] = -1
+		FIRST_FRAME = True
+	
+	for i in range(2,len(r_store)+1):
+		r_store[len(r_store)-i] = r_store[len(r_store)-i] + GAMMA*r_store[len(r_store)-i + 1]
+
+	return t, state_store, output_store, r_store, critic_store, FIRST_FRAME
+{% endhighlight %}
+
+The runprocess function, starts with defining the while loop in which each frame is processed. For each frame the action choosen is flap with a probability equal to the policy output (first output type). However if it is the first frame of a new game, the action choosen is not to flap, by default. This is done because we still cannot stack 4 frames in s_t to give as input to the network. Hence all the 4 frames in s_t are taken to be the same and default action of no flap is choosen as the network doesn't have any knowledge of bird movement from those frames.
 
 # Model Description
 The input to the neural network is a stack of 4, 84x84 grayscale game frames. The network used a convolutional layer with 16 filters of size 8x8 with stride 4, followed by a convolutional layer with with 32 filters of size 4x4 with stride 2, followed by a fully connected layer with 256 hidden units. All three hidden layers were followed by a rectifier nonlinearity. There are two set of outputs – a softmax output with one output representing the probability of flapping, and a single linear output representing the value function.
