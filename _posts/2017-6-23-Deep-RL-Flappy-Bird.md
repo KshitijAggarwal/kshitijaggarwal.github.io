@@ -231,21 +231,23 @@ def runprocess(thread_id, s_t, FIRST_FRAME, t):
 
 The runprocess function, starts with defining the while loop in which each frame is processed. For each frame the action choosen is flap with a probability equal to the policy output (first output type). However if it is the first frame of a new game, the action choosen is not to flap, by default. This is done because we still cannot stack 4 consecutive frames in s_t to give as input to the network. Hence all the 4 frames in s_t are taken to be same as the first frame and default action of no flap is choosen as the network doesn't have any knowledge of bird movement from those frames.
 
-The thread runs for a maximum of $$ {t}_{max} $$ steps and at each step, the state, action taken, reward obtained at each step and expected reward predicted by critic networks are stored in arrays- state_store, output_store, r_store and critic_store respectively. Later, these arrays for each thread are concatenated and then send to the model for training. The actual discounted reward value for each frame in the thread is calculated by rewards obtained in each step using the followin formula-
+The thread runs for a maximum of $$ t_{max} $$ steps and at each step, the state, action taken, reward obtained at each step and expected reward predicted by critic networks are stored in arrays- state_store, output_store, r_store and critic_store respectively. Later, these arrays for each thread are concatenated and then send to the model for training. The actual discounted reward value for each frame in the thread is calculated by rewards obtained in each step using the followin formula-
 
 $$ 
 r(s_t) = r(s_t) + \gamma * r(s_t) 
 $$
+
 $$ 
-r(s_t) = r(s_t) + \gamma * r(s_t') 
+r(s_t) = r(s_t) + \gamma * r(s_{t^{'}}) 
 $$
-where s_t' is the state succeeding the current state. However, the discounted reward value for the final step of a thread is taken to be the same as the reward predicted by the critic network. 
+
+where $$ s_{t^{'}} $$ is the state succeeding the current state. However, the discounted reward value for the final step of a thread is taken to be the same as the reward predicted by the critic network. 
 
 # Model Description
 I hope that the model definition and thread configuration is clearly understood by now. Now we will discuss about the loss function and the hyperparameters used by the model. As per the suggesstion given by the paper the following loss function is used by the network-
 
 $$ 
-L_{policy} = \sigma log \pi(a_{t}|s_{t}; \theta A(s_{t}, a_{t};\theta , {\theta}_{v}
+L_{policy} = \sum_{i=1}^{n} \log \pi(a_t|s_t; \theta A(s_t, a_t;\theta , {\theta}_v )
 $$
 
 The hyperparameters used are-
