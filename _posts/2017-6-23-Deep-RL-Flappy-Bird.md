@@ -148,7 +148,7 @@ The exact architecture is following : The input to the neural network consists o
 As the first category of outputs have range between 0 and 1, the loss used is categorical cross entropy. For the second category of outputs, the loss used is mean squared error (MSE). 
 
 # Parallel Processing
-Finally, now as our model is ready we are need to define parallel threads for updates. In this project, 16 parallel threads have been defined, each of which runs until terminal it true (bird died) or until for $$ {t}_{max} $$  steps have been performed, before weight updates are backpropogated. The value of $$ {t}_{max} $$ used is 5 steps and hence the maximum number of inputs in each batch is 16x5 = 80.
+Finally, now as our model is ready we are need to define parallel threads for updates. In this project, 16 parallel threads have been defined, each of which runs until terminal it true (bird died) or until $$ {t}_{max} $$  steps have been performed, before weight updates are backpropogated. The value of $$ {t}_{max} $$ used is 5 steps and hence the maximum number of inputs in each batch is 16x5 = 80.
 
 {% highlight python %}
 
@@ -232,10 +232,18 @@ def runprocess(thread_id, s_t, FIRST_FRAME, t):
 	return t, state_store, output_store, r_store, critic_store, FIRST_FRAME
 {% endhighlight %}
 
-The runprocess function, starts with defining the while loop in which each frame is processed. For each frame the action choosen is flap with a probability equal to the policy output (first output type). However if it is the first frame of a new game, the action choosen is not to flap, by default. This is done because we still cannot stack 4 frames in s_t to give as input to the network. Hence all the 4 frames in s_t are taken to be the same and default action of no flap is choosen as the network doesn't have any knowledge of bird movement from those frames.
+The runprocess function, starts with defining the while loop in which each frame is processed. For each frame the action choosen is flap with a probability equal to the policy output (first output type). However if it is the first frame of a new game, the action choosen is not to flap, by default. This is done because we still cannot stack 4 consecutive frames in s_t to give as input to the network. Hence all the 4 frames in s_t are taken to be same as the first frame and default action of no flap is choosen as the network doesn't have any knowledge of bird movement from those frames.
+
+The thread runs for a maximum of $$ {t}_{max} $$ steps and at each step, the state, action taken, reward obtained at each step and expected reward predicted by critic networks are stored in arrays- state_store, output_store, r_store and critic_store respectively. Later, these arrays for each thread are concatenated and then send to the model for training. The actual discounted reward value for each frame in the thread is calculated by rewards obtained in each step using the followin formula-
+
+$$ r(s_t) = r(s_t) + \gammma * r(s_t') $$
+
+where s_t' is the state succeeding the current state. However, the discounted reward value for the final step of a thread is taken to be the same as the reward predicted by the critic network. 
 
 # Model Description
-The input to the neural network is a stack of 4, 84x84 grayscale game frames. The network used a convolutional layer with 16 filters of size 8x8 with stride 4, followed by a convolutional layer with with 32 filters of size 4x4 with stride 2, followed by a fully connected layer with 256 hidden units. All three hidden layers were followed by a rectifier nonlinearity. There are two set of outputs – a softmax output with one output representing the probability of flapping, and a single linear output representing the value function.
+I hope that the model definition and thread configuration is clearly understood by now. Now we will discuss about the loss function and the hyperparameters used by the model. As per the suggesstion given by the paper the following loss function is used by the network-
+
+$$ L_{policy} = \sigma log \pi(a_{t}|s_{t}; \theta A(s_{t}, a_{t};\theta , {\theta}_{v}
 
 The hyperparameters used are-
 * Learning rate = 7e-4 which is decreased by 3.2e-8 (can be tuned better) every update.
