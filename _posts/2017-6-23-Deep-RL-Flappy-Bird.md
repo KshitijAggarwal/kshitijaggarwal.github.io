@@ -2,9 +2,7 @@
 layout: post
 title: Deep Reinforcement Learning to play Flappy Bird using A3C algorithm
 ---
-{:refdef: style="text-align: center;"}
 ![](images/animation.gif)
-{: refdef}
 
 # Overview
 This project uses Asynchronous advantage actor-critic algorithm (A3C) to play Flappy Bird using Keras. The details of this algorithm are mentioned in [this paper](https://arxiv.org/pdf/1602.01783.pdf) by Deep Mind. The code for this project can be found in [this github repository.](https://github.com/shalabhsingh/A3C_Keras_FlappyBird)
@@ -90,9 +88,7 @@ Interesting readers can modify the reward function in "game/wrapped_flappy_bird.
 
 ### Image pre-processing
 
-{:refdef: style="text-align: center;"}
 ![](/images/bird.jpg)
-{: refdef}
 
 In order to make the code train faster, it is vital to do some image processing. Here are the key elements:
 
@@ -146,7 +142,7 @@ The exact architecture is following : The input to the neural network consists o
 As the first category of outputs have range between 0 and 1, the loss used is categorical cross entropy. For the second category of outputs, the loss used is mean squared error (MSE). 
 
 # Parallel Processing
-Finally, now as our model is ready we are need to define parallel threads for updates. In this project, 16 parallel threads have been defined, each of which runs until terminal it true (bird died) or until $$ {t}_{max} $$  steps have been performed, before weight updates are backpropogated. The value of $$ {t}_{max} $$ used is 5 steps and hence the maximum number of inputs in each batch is 16x5 = 80.
+Finally, now as our model is ready we are need to define parallel threads for updates. In this project, 16 parallel threads have been defined, each of which runs until terminal it true (bird died) or until ![](http://latex.codecogs.com/gif.latex?t_%7Bmax%7D) steps have been performed, before weight updates are backpropogated. The value of ![](http://latex.codecogs.com/gif.latex?t_%7Bmax%7D) used is 5 steps and hence the maximum number of inputs in each batch is 16x5 = 80.
 
 ```python
 class actorthread(threading.Thread):
@@ -233,37 +229,31 @@ The runprocess function, starts with defining the while loop in which each frame
 
 The thread runs for a maximum of $$ t_{max} $$ steps and at each step, the state, action taken, reward obtained at each step and expected reward predicted by critic networks are stored in arrays- state_store, output_store, r_store and critic_store respectively. Later, these arrays for each thread are concatenated and then send to the model for training. The actual discounted reward value for each frame in the thread is calculated by rewards obtained in each step using the followin formula-
 
-$$ 
-r(s_t) = r(s_t) + \gamma * r(s_t) 
-$$
+![equation](http://latex.codecogs.com/gif.latex?r%28s_t%29%20%3D%20r%28s_t%29%20&plus;%20%5Cgamma%20*%20r%28s_%7Bt&plus;1%7D%29)
 
-$$ 
-r(s_t) = r(s_t) + \gamma * r(s_{t^{'}}) 
-$$
-
-where $$ s_{t^{'}} $$ is the state succeeding the current state. However, the discounted reward value for the final step of a thread is taken to be the same as the reward predicted by the critic network. 
+where ![equation](http://latex.codecogs.com/gif.latex?%24%20s_%7Bt&plus;1%7D%20%24) is the state succeeding the current state. However, the discounted reward value for the final step of a thread is taken to be the same as the reward predicted by the critic network. 
 
 # Model Description
 I hope that the model definition and thread configuration is clearly understood by now. Now we will discuss about the loss function and the hyperparameters used by the model. As per the suggesstion given by the paper the following loss function is used by the network-
 
-$$ 
-L_{policy} = \sum_{i=1}^{n} \log \pi(a_t|s_t; \theta A(s_t, a_t;\theta , {\theta}_v )
-$$
+![equation](http://latex.codecogs.com/gif.latex?L_%7Bpolicy%7D%20%3D%20%5Cfrac%7B1%7D%7Bn%7D%20%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%20%5Clog%20%5Cpi%28a_t%7Cs_t%3B%20%5Ctheta%29%20A%28s_t%2C%20a_t%3B%5Ctheta%20%2C%20%7B%5Ctheta%7D_v%20%29)
 
-The hyperparameters used are-
-* Learning rate = 7e-4 which is decreased by 3.2e-8 (can be tuned better) every update.
+where n is the batch size, ![](http://latex.codecogs.com/gif.latex?%5Ctheta) and ![](http://latex.codecogs.com/gif.latex?%7B%5Ctheta%7D_v) are the network parameters and ![](http://latex.codecogs.com/gif.latex?A%28s_t%2C%20a_t%3B%5Ctheta%20%2C%20%7B%5Ctheta%7D_v%20%29) refer to the advantage function which is the difference between the actual reward obtained and reward predicted by the critic network. As it can be observed, advantage can both be positive as well as negative. When the advantage is positive, it means that the policy taken is better than expected and hence a positive advantage proportional to the goodness of the policy is multiplied. When the advantage is negative, it means that the policy is not good and hence a negative advantage is multiplied, so that the contribution to weight updates performed by these states is reversed and the network will adopt this policy with a lesser probability, the next time a similar state is encountered.
+
+The loss for the critic network is-
+
+![](http://latex.codecogs.com/gif.latex?%5Cfrac%7B1%7D%7Bn%7D%20%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%20%7B%28r%28s_t%29-V%28s_t%3B%5Ctheta_v%29%29%7D%5E%7B2%7D)
+
+where ![](http://latex.codecogs.com/gif.latex?r%28s_t%29) is the actual reward and ![](http://latex.codecogs.com/gif.latex?V%28s_t%3B%7B%5Ctheta%7D_v%29) is the predicted critic reward.
+
+RMSprop optimizer is used for updating the weights of the network. The learning rate used is 7e-4 which is decreased by 3.2e-8 each epoch until it reaches 0. Other hyperparameters are mentioned below-
+
 * No. of threads = 16
 * Frames/thread used for each update = 5
 * Reward discount (gamma) = 0.99
 * RMSProp cache decay rate = 0.99
 * Entropy regularization, as suggested by the paper has not been used. However I believe that using it, could lead to better performance of the model.
 
-The best model I have got is still not very good but is able to cross 5 pipes on average (i.e. it has developed a good understanding of when to flap and when not to). To train better models, tinkering with above hyperparameters can be beneficial.
+The best model I have got is still not very good but is able to cross 5 pipes on average (i.e. it has developed a good understanding of physics and knows when to flap and when not to). To train better models, tinkering with above hyperparameters can be beneficial.
 
-
-# From Blog
-
-Summary
-
-This project was mainly focused on tuning the hyperparameters of the neural net as it is pretty difficult to converge as a3c searches for local optimum rather than global optimum. Another focus was to learn about the state of the art algorithms that are changing the deep learning scenarios, by producing universal AIs.
 
