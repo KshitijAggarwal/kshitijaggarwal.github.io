@@ -258,4 +258,37 @@ RMSprop optimizer is used for updating the weights of the network. The learning 
 
 The best model I have got is still not very good but is able to cross 5 pipes on average (i.e. it has developed a good understanding of physics and knows when to flap and when not to). To train better models, tinkering with above hyperparameters can be beneficial.
 
+# Disclaimer
+This work is based on the following repos and blogs-
 
+1. https://github.com/yenchenlin/DeepLearningFlappyBird
+2. https://github.com/jaara/AI-blog
+3. http://karpathy.github.io/2016/05/31/rl/
+4. https://yanpanlau.github.io/2016/07/10/FlappyBird-Keras.html
+5. https://jaromiru.com/2017/03/26/lets-make-an-a3c-implementation/
+
+{% if page.comments %}
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//deepben.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+{% endif %}
