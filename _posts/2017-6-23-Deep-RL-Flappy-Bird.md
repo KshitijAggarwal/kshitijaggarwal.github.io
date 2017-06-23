@@ -103,7 +103,6 @@ In order to make the code train faster, it is vital to do some image processing.
 Why is it needed to stack 4 frames together? This is one way for the model to be able to infer the velocity information of the bird.
 
 {% highlight python %}
-
 def preprocess(image):
 	image = skimage.color.rgb2gray(image)
 	image = skimage.transform.resize(image, (IMAGE_ROWS,IMAGE_COLS), mode = 'constant')	
@@ -118,7 +117,6 @@ The input to the preprocess function is a single frame **image** , which is resi
 Now as we have processed the input into the model, we can describe the model itself now-
 
 {% highlight python %}
-
 def buildmodel():
 	print("Model buliding begins")
 
@@ -151,7 +149,6 @@ As the first category of outputs have range between 0 and 1, the loss used is ca
 Finally, now as our model is ready we are need to define parallel threads for updates. In this project, 16 parallel threads have been defined, each of which runs until terminal it true (bird died) or until $$ {t}_{max} $$  steps have been performed, before weight updates are backpropogated. The value of $$ {t}_{max} $$ used is 5 steps and hence the maximum number of inputs in each batch is 16x5 = 80.
 
 {% highlight python %}
-
 class actorthread(threading.Thread):
 	def __init__(self,thread_id, s_t, FIRST_FRAME, t):
 		threading.Thread.__init__(self)
@@ -236,14 +233,18 @@ The runprocess function, starts with defining the while loop in which each frame
 
 The thread runs for a maximum of $$ {t}_{max} $$ steps and at each step, the state, action taken, reward obtained at each step and expected reward predicted by critic networks are stored in arrays- state_store, output_store, r_store and critic_store respectively. Later, these arrays for each thread are concatenated and then send to the model for training. The actual discounted reward value for each frame in the thread is calculated by rewards obtained in each step using the followin formula-
 
-$$ r(s_t) = r(s_t) + \gammma * r(s_t') $$
+$$ 
+r(s_t) = r(s_t) + \gammma * r(s_t') 
+$$
 
 where s_t' is the state succeeding the current state. However, the discounted reward value for the final step of a thread is taken to be the same as the reward predicted by the critic network. 
 
 # Model Description
 I hope that the model definition and thread configuration is clearly understood by now. Now we will discuss about the loss function and the hyperparameters used by the model. As per the suggesstion given by the paper the following loss function is used by the network-
 
-$$ L_{policy} = \sigma log \pi(a_{t}|s_{t}; \theta A(s_{t}, a_{t};\theta , {\theta}_{v}
+$$ 
+L_{policy} = \sigma log \pi(a_{t}|s_{t}; \theta A(s_{t}, a_{t};\theta , {\theta}_{v}
+$$
 
 The hyperparameters used are-
 * Learning rate = 7e-4 which is decreased by 3.2e-8 (can be tuned better) every update.
