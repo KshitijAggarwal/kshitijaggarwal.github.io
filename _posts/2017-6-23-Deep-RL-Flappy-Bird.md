@@ -66,10 +66,10 @@ The network will be trained for a lot of times, to maximize the future expected 
 
 First of all, the FlappyBird is already written in Python via pygame, so here is the code snippet to access the FlappyBird API
 
-{% highlight python %}
+```python
 import wrapped_flappy_bird as game
 x_t, r_t, terminal = game_state[thread_id].frame_step(a_t)
-{% endhighlight %}
+```
 
 The idea is quite simple, the input is ```a_t``` (0 represent no flap, 1 represent flap) and the API will give you the next frame ```x_t```, the reward ```r_t``` (0.1 if alive, +1.5 if it passes the pipe, -1 if it dies) and ```terminal``` is a boolean flag which indicates whether the game is FINISHED or NOT. As there are multiple threads in which the game is running, 'thread_id' denotes the thread of the running game.
 
