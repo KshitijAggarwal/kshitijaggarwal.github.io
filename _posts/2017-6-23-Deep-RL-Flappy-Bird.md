@@ -7,7 +7,7 @@ title: Deep Reinforcement Learning to play Flappy Bird using A3C algorithm
 # Overview
 This project uses Asynchronous advantage actor-critic algorithm (A3C) to play Flappy Bird using Keras deep learning library. The details of this algorithm are mentioned in [this paper](https://arxiv.org/pdf/1602.01783.pdf) by Google DeepMind. **The code for this project can be found in [this github repository.](https://github.com/shalabhsingh/A3C_Keras_FlappyBird)**
 
-<a href="{{ site.basurl }}{{ post.url }}" class="read-more">Read More</a>
+
 {:refdef: style="text-align: center;"}
 ![](/images/animation.gif)
 {: refdef}
