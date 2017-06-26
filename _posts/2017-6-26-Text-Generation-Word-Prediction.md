@@ -6,16 +6,21 @@ title: Text Generation and Word Prediction using RNN
 
 There are a lot of beautiful things about neural networks and one of them is Recurrent Neural Networks(RNN). RNNs have been used in a variety of fields lately and have given very good results.
 
-## What is an RNN?
+## What is RNN?
 RNN stands for Recurrent neural networks. Recurrent is used to refer to repeating things. And hence an RNN is a neural network which repeats iteslf. In an RNN, the value of hidden layer neurons is dependent on the present input as well as the input given to hidden layer neuron values in the past. As past hidden layer neuron values are obtained from previous inputs, we can say that an RNN takes into consideration all the previous inputs given to the network in the past to calculate the output. You can visualize an RNN as follows-
 
 ![](/images/RNN-unrolled.png)
+{:refdef: style="text-align: center;"}
+_Image taken from [Colah's blog](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)_
+{: refdef}
 
 There is a loop in the hidden layers because the hidden layer values are also calculated from previous hidden layer values. If we unroll an RNN as shown in the right part of the image above, this dependency becomes more clear.
 
 For a better understanding, we need to dig a little into mathematics of how this works. In vanilla RNN, the hidden layer value of a neuron is calculated by adding the value obtained by multiply the input of the previous layer and the weight matrix and then adding to it the previous value of that neuron. This is generally followed by a ```tanh``` or ```ReLU``` activation function. For a first hidden layer of a network, this can be written as-
 
+{:refdef: style="text-align: center;"}
 ![equation](http://latex.codecogs.com/gif.latex?h_t%20%3D%20tanh%28W_%7Bhh%7Dh_%7Bt-1%7D%20&plus;%20W_%7Bxh%7Dx_t%29)
+{: refdef}
 
 where ![](http://latex.codecogs.com/gif.latex?h_t) and ![](http://latex.codecogs.com/gif.latex?h_%7Bt-1%7D) are hidden neuron's value at time ![](http://latex.codecogs.com/gif.latex?t) and ![](http://latex.codecogs.com/gif.latex?t-1) respectively, ![](http://latex.codecogs.com/gif.latex?W_%7Bhh%7D) and ![](http://latex.codecogs.com/gif.latex?W_%7Bxh%7D) are weight matrices from hidden to hidden and input to hidden layers respectively. 
 
@@ -39,7 +44,7 @@ To illustrate the power of RNNs and LSTMs, we will train a neural network model 
 1. To generate text given an intitial piece of text as input.
 2. To suggest next word while we are writing a sentence.
 
-The code for the project below can be found on [this](https://github.com/shalabhsingh/Text_generation_prediction_RNN) github repository I have created. Although the results are not outstanding, but they are sufficient to illustrate the concept we are dealing with over here. We will begin going through the code now so that we can understand what's going on. The neural model is created in python using Keras library.
+**The code for the project below can be found on [this](https://github.com/shalabhsingh/Text_generation_prediction_RNN) github repository I have created.** Although the results are not outstanding, but they are sufficient to illustrate the concept we are dealing with over here. We will begin going through the code now so that we can understand what's going on. The neural model is created in python using Keras library in Jupyter notebook.
 
 ## Model development and training
 
