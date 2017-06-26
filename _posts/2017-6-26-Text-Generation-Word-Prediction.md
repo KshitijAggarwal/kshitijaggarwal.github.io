@@ -4,16 +4,6 @@ title: Text Generation and Word Prediction using RNN
 -disqus: true
 ---
 
-# Overview
-This project uses Asynchronous advantage actor-critic algorithm (A3C) to play Flappy Bird using Keras deep learning library. The details of this algorithm are mentioned in [this paper](https://arxiv.org/pdf/1602.01783.pdf) by Google DeepMind. **The code for this project can be found in [this github repository.](https://github.com/shalabhsingh/A3C_Keras_FlappyBird)**
-
-
-{:refdef: style="text-align: center;"}
-![](/images/animation.gif)
-{: refdef}
-
-
-
 There are a lot of beautiful things about neural networks and one of them is Recurrent Neural Networks(RNN). RNNs have been used in a variety of fields lately and have given very good results.
 
 ## What is RNN?
