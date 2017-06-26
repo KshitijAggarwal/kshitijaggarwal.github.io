@@ -13,6 +13,6 @@ If you want to connect with me or share interesting stuff you made (so that I ca
 
 ### More Information
 
-Here is a link to my ![kaggle](https://www.kaggle.com/shalabh1) profile. Kaggle also has a blog where they share tutorials for data science ![http://blog.kaggle.com/category/tutorials/](See here)
+Here is a link to my [kaggle](https://www.kaggle.com/shalabh1) profile. Kaggle also has a blog where they share tutorials for data science [http://blog.kaggle.com/category/tutorials/](see here).
 
 Have a nice time.
