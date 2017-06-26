@@ -9,6 +9,8 @@ There are a lot of beautiful things about neural networks and one of them is Rec
 ## What is RNN?
 RNN stands for Recurrent neural networks. Recurrent is used to refer to repeating things. And hence an RNN is a neural network which repeats iteslf. In an RNN, the value of hidden layer neurons is dependent on the present input as well as the input given to hidden layer neuron values in the past. As past hidden layer neuron values are obtained from previous inputs, we can say that an RNN takes into consideration all the previous inputs given to the network in the past to calculate the output. You can visualize an RNN as follows-
 
+
+
 ![](/images/RNN-unrolled.png)
 {:refdef: style="text-align: center;"}
 _Image taken from [Colah's blog](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)_
