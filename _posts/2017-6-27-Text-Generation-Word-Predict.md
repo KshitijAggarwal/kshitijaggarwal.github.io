@@ -47,6 +47,8 @@ To illustrate the power of RNNs and LSTMs, we will train a neural network model 
 
 **The code for the project below can be found on [this](https://github.com/shalabhsingh/Text_generation_prediction_RNN) GitHub repository I have created.** Although the results are not outstanding, but they are sufficient to illustrate the concept we are dealing with over here. We will begin going through the code now so that we can understand what's going on. The neural model is created in python using Keras library in Jupyter notebook.
 
+The codes and applications of RNN developed in this blog post are highly based on this [blog post](http://machinelearningmastery.com/text-generation-lstm-recurrent-neural-networks-python-keras/) on machinelearningmastery.com
+
 ## Model development and training
 
 First of all, we import the numpy and keras modules, important for storing data and defining the model respectively.
