@@ -42,7 +42,7 @@ However because of better exploration by DQN, it generally settles at global min
 
 A complete blog post can be written on Q-learning itself so as to explain technical terms like experience replay etc., however I won't delve into those topics. For knowing more about Deep Q learning and using it to play Flappy bird, see this excellent blog post by Ben Lau - [Using Keras and Deep Q-Network to Play FlappyBird](https://yanpanlau.github.io/2016/07/10/FlappyBird-Keras.html). A rough understanding of Deep Q-learning approach is a must for proceeding further.
 
-###Off policy v/s On policy methods###
+### Off policy v/s On policy methods ###
 In the above few lines I have repeatedly mentioned about Off policy and On policy methods so I will explain what they are. If the updates in the neural network model performed by a method is partially/completely independent of the policy (actions taken), then it is an off policy method. Else, it is an on policy method. 
 
 ## Asynchronous algorithms for Deep Reinforcement Learning
@@ -252,8 +252,7 @@ The main aim of this blog post is to give a gentle introduction to Deep Reinforc
 ## Disclaimer
 This work is based on the following repos and blogs-
 
-1. [](https://github.com/yenchenlin/DeepLearningFlappyBird)
-2. [](https://github.com/jaara/AI-blog)
-3. [](http://karpathy.github.io/2016/05/31/rl/)
-4. [](https://yanpanlau.github.io/2016/07/10/FlappyBird-Keras.html)
-5. [](https://jaromiru.com/2017/03/26/lets-make-an-a3c-implementation/)
+1. [DeepLearningFlappyBird - yenchenlin](https://github.com/yenchenlin/DeepLearningFlappyBird)
+2. [Deep Reinforcement Learning: Pong from Pixels](http://karpathy.github.io/2016/05/31/rl/)
+3. [Using Keras and Deep Q-Network to Play FlappyBird](https://yanpanlau.github.io/2016/07/10/FlappyBird-Keras.html)
+4. [Let's make an A3C: Implementation](https://jaromiru.com/2017/03/26/lets-make-an-a3c-implementation/)
