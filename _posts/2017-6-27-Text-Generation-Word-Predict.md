@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Text Genration & Word Prediction using RNN
+title: Text Generation & Word Prediction using RNN
 -disqus: true
 ---
 
