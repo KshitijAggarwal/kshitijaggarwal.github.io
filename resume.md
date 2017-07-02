@@ -4,4 +4,4 @@ title: Resume
 permalink: /resume/
 ---
 
-Please find my resume over [here](/docs/Shalabh_Singh_Resume.pdf)
+Please find my resume over [here](/docs/Shalabh_Singh_Resume.pdf).
