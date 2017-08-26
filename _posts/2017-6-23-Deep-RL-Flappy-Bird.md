@@ -243,9 +243,9 @@ RMSprop optimizer is used for updating the weights of the network. The ```learni
 * Frames/thread used for each update = 5
 * Reward discount (gamma) = 0.99
 * RMSProp cache decay rate = 0.99
-* Entropy regularization, as suggested by the paper has not been used. However I believe that using it, could lead to better performance of the model.
+* Entropy regularization, as suggested by the paper has not been used. 
 
-The best model I have got is still not very good, but is able to cross 5 pipes on average (i.e. it has developed a good understanding of physics and knows when to flap and when not to). To train better models, tinkering with above hyperparameters can be beneficial.
+The best model I have got is quite good. The bird rarely dies and is able to cross >500 pipes easily. As the performance was pretty good, I didn't used entropy regularization as suggested by the paper. 
 
 The main aim of this blog post is to give a gentle introduction to Deep Reinforcement Learning and to demonstrate an implementation of a game AI using A3C algorithm. I hope that it was a good learning experience. If you liked the post or have any doubts/suggestions please mention in the comments below.
 
