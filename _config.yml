@@ -3,13 +3,13 @@
 #
 
 # Name of your site (displayed in the header)
-name: Shalabh Singh
+name: Kshitij Aggarwal
 
 # Short bio or description (displayed in the header)
-description: I support Vector Machines
+description: Aspiring cyborg
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: https://avatars3.githubusercontent.com/u/26006330?v=3&s=400
+avatar: https://github.com/KshitijAggarwal/kshitijaggarwal.github.io/blob/master/images/pic.jpg #https://avatars3.githubusercontent.com/u/26006330?v=3&s=400
 
 #
 # Flags below are optional
@@ -18,24 +18,24 @@ avatar: https://avatars3.githubusercontent.com/u/26006330?v=3&s=400
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble:
-  email: shalabhsingh95@gmail.com
-  facebook: shalabh.singh.313
+  email: ka0064@mix.wvu.edu
+  facebook: kshitij.aggarwal.13
   flickr:
-  github: shalabhsingh
+  github: KshitijAggarwal
   instagram:
-  linkedin: shalabh-singh-537397a8
+  linkedin: 
   pinterest:
   rss: # just type anything here for a working RSS icon
-  twitter: 
+  twitter: KshitijAgg13
   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
   youtube: # channel/<your_long_string> or user/<user-name>
   googleplus: # anything in your profile username that comes after plus.google.com/
-  quora: profile/Shalabh-Singh-3
+  quora: profile/Kshitij-Aggarwal-5
   kaggle: 
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
 # You can find your shortname on the Settings page of your Disqus account
-disqus: shalabhsingh-github-io
+disqus: 
 
 # Enter your Google Analytics web tracking code (e.g. UA-2110908-2) to activate tracking
 google_analytics:
