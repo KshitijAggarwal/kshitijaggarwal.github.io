@@ -53,11 +53,12 @@ Some fun and useful resources I have collected over past years.
 * [A useful links page similar to this one](https://mayurisrao.wordpress.com/resources/)
 * [Thesis Whisperer](https://thesiswhisperer.com/)
 * [GradHacker](https://www.insidehighered.com/blogs/gradhacker)
+* [Barking up The Wrong Tree](https://www.bakadesuyo.com/)
 
 ### Useful Apps: 
 * [mathpix: screenshot to Latex](https://mathpix.com/)
 
-### Nerd Fun: 
+### Comics: 
 * [phdcomics](http://phdcomics.com/)
 * [Antimatter Webcomics](http://antimatterwebcomics.com/)
 * [xkcd](https://xkcd.com/)
