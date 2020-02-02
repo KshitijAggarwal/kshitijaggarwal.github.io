@@ -67,7 +67,9 @@ Some fun and useful resources I have collected over past years.
 * [Undergrad Advice](https://cs.stanford.edu/people/karpathy/advice.html)
 * [Grad School Advice](https://karpathy.github.io/2016/09/07/phd/) 
 * [Conference Advice](https://twitter.com/SciBry/status/1090705948623192064)
+* [Academic Job Application](https://twitter.com/SciBry/status/1200839127735947270?s=20)
 * [Good Practices on authorship](https://sites.psu.edu/astrowright/2017/05/04/who-should-be-an-author-on-a-paper-i-aas-ethics-policy/)
+* [Paper writing](https://www.youtube.com/watch?v=UY7sVKJPTMA&app=desktop)
 
 ### TED/TEDx Talks:
 * [The secret to scientific discoveries? Making mistakes; Phil Plait](https://www.youtube.com/watch?v=XY6aAPhs0tE)
