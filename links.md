@@ -26,6 +26,7 @@ Some fun and useful resources I have collected over past years.
 * [Explain Shell Commands](https://explainshell.com/)
 * [Unix Permissions Calculator](http://permissions-calculator.org/)
 * [Some useful websites for programmers](https://github.com/sdmg15/Best-websites-a-programmer-should-visit)
+* [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/)
 
 ### Astronomy Database:
 * [Dunc’s MSP List](http://astro.phys.wvu.edu/GalacticMSPs/GalacticMSPs.txt)
@@ -70,6 +71,7 @@ Some fun and useful resources I have collected over past years.
 * [Academic Job Application](https://twitter.com/SciBry/status/1200839127735947270?s=20)
 * [Good Practices on authorship](https://sites.psu.edu/astrowright/2017/05/04/who-should-be-an-author-on-a-paper-i-aas-ethics-policy/)
 * [Paper writing](https://www.youtube.com/watch?v=UY7sVKJPTMA&app=desktop)
+* [Writer's Block](https://hfstevance.com/blog/writersblock)
 
 ### TED/TEDx Talks:
 * [The secret to scientific discoveries? Making mistakes; Phil Plait](https://www.youtube.com/watch?v=XY6aAPhs0tE)
