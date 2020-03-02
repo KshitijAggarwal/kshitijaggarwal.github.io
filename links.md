@@ -81,3 +81,4 @@ Some fun and useful resources I have collected over past years.
 * [TED: Talks for when you feel like you’re not enough](https://www.ted.com/playlists/331/talks_for_when_you_feel_like_y)
 * [What if There's Nothing Wrong With You](https://www.youtube.com/watch?v=gF5XztmijhQ)
 * [How to get rid of loneliness and become happy; Olivia Remes](https://www.youtube.com/watch?v=vZT-bB66iIk)
+* [Don't Believe Everything You Think; Lauren Weinstein](https://www.youtube.com/watch?v=Xdhmgp4IUL0)
