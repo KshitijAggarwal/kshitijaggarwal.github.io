@@ -166,7 +166,7 @@ If you want to dig deeper, the python code for the above is available <a href="h
 
 <p><font size="4">Please cite the following papers if you make use of the above tool:
 <ul>
-<li>Agarwal et al 2020</li>
+<li>Aggarwal et al 2020</li>
 <li><a href="https://ui.adsabs.harvard.edu/abs/2017ApJ...849..162E/abstract">EB17</a></li>
 <li><a href="https://ui.adsabs.harvard.edu/abs/2002AJ....123.1111B/abstract">Bloom 2003</a></li>
 </ul>
