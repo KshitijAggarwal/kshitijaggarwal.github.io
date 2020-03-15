@@ -59,7 +59,7 @@ var ms_eb17 = [ 0.        ,  0.3030303 ,  0.60606061,  0.90909091,  1.21212121,
 z_mins = [0.0, 0.1, 0.2, 0.4, 0.6, 0.8, 1.0]
 z_maxs = [0.1, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2]
 ix = [0, 1, 2, 3, 4, 5, 6]
-num_gal_z = [7391864.650475038, 55891941.91887342, 442633949.7433847, 895232758.005576, 1503624391.9486768, 2175720871.4302573, 1729558966.4161413]
+num_gal_z = [7391864.650475038, 57712458.93144452, 479378524.07428855, 1101775738.812701, 1929280224.618195, 2941857435.1465583, 2490046446.3012757]
 
 function get_R(R_frb){
     return Math.max(2*R_frb, Math.sqrt(Math.pow(R_0, 2) + 4*Math.pow(R_h,2)));
@@ -98,18 +98,17 @@ function p_eb17(){
     document.getElementById('eb17_prob_result').value = 1 - Math.exp(-1*num_gals);
 }
 
+
 function p_eb17_z(){
     var R_frb = parseFloat(document.getElementById("R_frb_z").value)
     var z = parseFloat(document.getElementById("redshift").value)
 
     var r_i = get_R(R_frb);
     
-    if ((z > 0) && (z < 1.2 || z == 1.2)){
-
+    if (z > 0 && z < 1.2){
         var z_min = z_mins.reduce(function(prev, curr) {
             return (curr > z ? prev : curr);
             });        
-        
         var mask = z_mins.map(item => (item == z_min));
         var idx = ix.filter((item, i) => mask[i]);
         var z_max = z_maxs.filter((item, i) => mask[i]);  
@@ -119,8 +118,8 @@ function p_eb17_z(){
         for (i = 0; i <= idx; i++){
             n += num_gal_z[i];
         }
-    
-        var f_a = Math.PI*Math.pow(r_i,2)/(5.346*Math.pow(10,11));
+
+	var f_a = Math.PI*Math.pow(r_i,2)/(5.346*Math.pow(10,11));
         var num_gals = f_a*n;
         document.getElementById('eb17_prob_z_result').value = 1 - Math.exp(-1*num_gals);
         
@@ -166,7 +165,7 @@ If you want to dig deeper, the python code for the above is available <a href="h
 
 <p><font size="4">Please cite the following papers if you make use of the above tool:
 <ul>
-<li>Aggarwal et al 2020</li>
+<li>Aggarwal et al (in prep.)</li>
 <li><a href="https://ui.adsabs.harvard.edu/abs/2017ApJ...849..162E/abstract">EB17</a></li>
 <li><a href="https://ui.adsabs.harvard.edu/abs/2002AJ....123.1111B/abstract">Bloom 2003</a></li>
 </ul>
