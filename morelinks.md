@@ -9,6 +9,7 @@ Some more useful links:
 ### Motivational Stuff
 * [8 Life Lessons I’ve Learned From Studying Great Writers; Darius Foroux](https://medium.com/personal-growth/8-life-lessons-ive-learned-from-studying-great-writers-4e2e45e73723)
 * [Playlist of Inspirational Videos](https://www.youtube.com/playlist?list=PLPDz6MlgRpu4dkUgdOs6AqXKuPckTsdkh)
+* [5 Things You Won’t Care About On Your Death Bed](https://medium.com/publishous/5-things-you-wont-care-about-on-your-death-bed-9bb771b27c86)
 
 ## Programming Stuff
 * [Pandas’ groupby explained in detail](https://towardsdatascience.com/pandas-groupby-aggregate-transform-filter-c95ba3444bbb)
