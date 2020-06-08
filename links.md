@@ -82,3 +82,6 @@ Some fun and useful resources I have collected over past years.
 * [What if There's Nothing Wrong With You](https://www.youtube.com/watch?v=gF5XztmijhQ)
 * [How to get rid of loneliness and become happy; Olivia Remes](https://www.youtube.com/watch?v=vZT-bB66iIk)
 * [Don't Believe Everything You Think; Lauren Weinstein](https://www.youtube.com/watch?v=Xdhmgp4IUL0)
+* [Great Leaders Do What Drug Addicts Do; Michael Brody-Waite](https://www.youtube.com/watch?v=UUnRKf2CemA)
+
+

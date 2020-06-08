@@ -11,6 +11,7 @@ Some more useful links:
 * [Playlist of Inspirational Videos](https://www.youtube.com/playlist?list=PLPDz6MlgRpu4dkUgdOs6AqXKuPckTsdkh)
 * [5 Things You Won’t Care About On Your Death Bed](https://medium.com/publishous/5-things-you-wont-care-about-on-your-death-bed-9bb771b27c86)
 * [5 Life Lessons Told Over 5 Glasses of Wine from a 99-Year Old Filled With Regret](https://medium.com/mind-cafe/5-life-lessons-told-over-5-glasses-of-wine-from-a-99-year-old-filled-with-regret-e05c9fb48a66)
+* [3 Things The Most Resilient People Do Every Day](https://www.bakadesuyo.com/2020/06/resilient-people/)
 
 ## Programming Stuff
 * [Pandas’ groupby explained in detail](https://towardsdatascience.com/pandas-groupby-aggregate-transform-filter-c95ba3444bbb)
