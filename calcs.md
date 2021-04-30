@@ -16,7 +16,7 @@ function s_min(){
     var snr = parseFloat(document.getElementById("snr").value)
     var w = parseFloat(document.getElementById("width").value)
 
-    var fluence = (tsys*snr)/(gain*(Math.pow(2*w*bw*Math.pow(10,3), 1/2)));
+    var fluence = (w*tsys*snr)/(gain*(Math.pow(2*w*bw*Math.pow(10,3), 1/2)));
     document.getElementById('minimum_fluence').value = fluence;
     }
     
