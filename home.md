@@ -4,9 +4,9 @@ title:
 permalink: /
 ---
 
-Hi! Welcome to my personal website. 
+Hi! Welcome to my website. 
 
-I am a PhD student at the Department of Physics and Astronomy at West Virginia University. I write [code](https://github.com/KshitijAggarwal) to find Fast Radio Bursts, and delegate some of my tasks to Machine Learning. You can find the details of my ongoing projects [here](/research/). I love to read, used to write blogs and have dabbled with poetry as well. Feel free to look around using the tabs on the top.   
+I recently completed my Ph.D. from the Department of Physics and Astronomy at West Virginia University. I developed algorithms to automatically find and study rare astrophysical events (called Fast Radio Bursts). 
+You can find some of my past research projects [here](/research/). I love to read, write, and dabble with poetry. 
 
-You can find my cv ([here](/docs/kshitij_cv.pdf)) and a list of my publications ([here](https://ui.adsabs.harvard.edu/public-libraries/yUUKwaFhRVu2DCvZ4A3HXg)). 
-
+I now want to solve real-world problems using the data analysis and machine learning skills I learned in my undergraduate and graduate studies.
