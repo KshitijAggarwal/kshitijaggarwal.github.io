@@ -18,9 +18,9 @@ html {
 }
 
 body {
-	background: $white;
+	background: #222; /* Dark background */
   font: 18px/1.4 $helvetica;
-  color: $darkGray;
+  color: #ddd; /* Lighter font color for better contrast */
 }
 
 .container {
@@ -32,7 +32,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $helveticaNeue;
-  color: $darkerGray;
+  color: #ddd;
   font-weight: bold;
 
   line-height: 1.7;
@@ -69,11 +69,11 @@ p {
 }
 
 a {
-  color: $blue;
+  color: #1e90ff;
   text-decoration: none;
 	cursor: pointer;
   &:hover, &:active {
-    color: $blue;
+    color: #63b8ff;
   }
 }
 
@@ -122,12 +122,12 @@ img {
 
 // Specify the color of the selection
 ::-moz-selection {
-  color: $black;
-  background: $lightGray;
+  color: #222;
+  background: #ddd;
 }
 ::selection {
-  color: $black;
-  background: $lightGray;
+  color: #222;
+  background: #ddd;
 }
 
 // Nicolas Gallagher's micro clearfix hack
@@ -156,7 +156,8 @@ img {
 
 .masthead {
   padding: 20px 0;
-  border-bottom: 1px solid $lightGray;
+  border-bottom: 1px solid #444;
+  // background-color: #333; 
 
   @include mobile {
     text-align: center;
@@ -192,7 +193,7 @@ img {
 
 .site-name {
   margin: 0;
-  color: $darkGray;
+  color: #f5f5f5;
   cursor: pointer;
   font-family: $helveticaNeue;
   font-weight: 300;
@@ -202,7 +203,7 @@ img {
 
 .site-description {
   margin: -5px 0 0 0;
-  color: $gray;
+  color: #bbb;
   font-size: 16px;
 
   @include mobile {
@@ -225,14 +226,14 @@ nav {
 
   a {
     margin-left: 20px;
-    color: $darkGray;
+    color: #ddd;
     text-align: right;
     font-weight: 300;
     letter-spacing: 1px;
 
     @include mobile {
       margin: 0 10px;
-      color: $blue;
+      color: #1e90ff;
     }
   }
 }
@@ -243,7 +244,7 @@ nav {
 
 .posts > .post {
   padding-bottom: 2em;
-  border-bottom: 1px solid $lightGray;
+  border-bottom: 1px solid #444;
 }
 
 .posts > .post:last-child {
@@ -254,9 +255,9 @@ nav {
 .post {
   blockquote {
     margin: 1.8em .8em;
-    border-left: 2px solid $gray;
+    border-left: 2px solid #555; 
     padding: 0.1em 1em;
-    color: $gray;
+    color: #aaa;
     font-size: 22px;
     font-style: italic;
   }
@@ -281,6 +282,8 @@ nav {
 footer {
   padding: 20px 0;
   text-align: left;
+  // background: #1a1a1a; /* Slightly different shade for footer for differentiation */
+  // color: #bbb; /* Lighter font color for footer */
 }
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
