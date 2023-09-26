@@ -4,7 +4,7 @@ title: Friendly Terminal
 -disqus: false
 ---
 
-I don’t exactly remember how, maybe I saw a tweet or maybe I just stumbled across this GitHub repo called [Friendly Terminal](https://github.com/vzhz/friendly_terminal). I got curious, so I peeked in and found out that it was a terminal extension which prints a motivational message whenever the terminal is opened. I really liked the idea, so I decided to give it a try and added a few motivational messages of my own. It also considers what day and time of day it is, which is pretty cool.
+I don’t exactly remember how, maybe I saw a tweet or maybe I just stumbled across this GitHub repo called [Friendly Terminal](https://github.com/vzhz/friendly_terminal). I got curious, so I peeked in and found out that it was a terminal extension which prints a motivational message whenever the terminal is opened. <!--more--> I really liked the idea, so I decided to give it a try and added a few motivational messages of my own. It also considers what day and time of day it is, which is pretty cool.
 
 It is such a small thing. Whenever I open terminal, I get a message. If I open a new tab in my terminal, I again get this message. So I get to see a message tens of times a day. Also, as it picks the messages randomly from a list of messages, it doesn’t feel that repetitive. I don’t consciously take note of these messages every time, though I know I always read them. It barely takes a second, as I open the terminal and start writing stuff in, the eye just dances over this message which is faithfully there to spread positivity and boost my confidence. I actually feel like it has made a difference.
 
