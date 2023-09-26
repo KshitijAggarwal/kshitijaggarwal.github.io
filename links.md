@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Links
-permalink: /links/
+title: Astronomy Links
+permalink: /astrolinks/
 ---
 
 Some fun and useful resources I have collected over past years. 

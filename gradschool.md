@@ -1,10 +1,13 @@
 ---
 layout: page
-title: Research
-permalink: /research/
+title: Graduate School
+permalink: /gradschool/
 ---
 
-### or stuff that excites me and keeps me up at night ... 
+I did a Ph.D. from the [Department of Physics and Astronomy](https://physics.wvu.edu/) at [West Virginia University](https://www.wvu.edu/). I developed algorithms to automatically find and study rare astrophysical events (called Fast Radio Bursts). 
+
+## Research
+### or stuff that excites me and kept me up at night ... 
 
 ![](/images/research.png)
 _Image Sources: [Lorimer Burst](http://astronomy.swin.edu.au/cosmos/F/Fast+Radio+Bursts), [GBT](https://public.nrao.edu/telescopes/gbt/), [VLA](https://public.nrao.edu/telescopes/vla/), [Arecibo](https://en.wikipedia.org/wiki/Arecibo_Observatory)_
@@ -19,9 +22,6 @@ I led a project called [TPP](https://github.com/thepetabyteproject) (The Petabyt
 
 I also developed many software packages for FRB analysis: classification, period search, data processing, etc. Take a look at my [Github](https://github.com/KshitijAggarwal) for more information.  
 
-You can find a full list of my publications [here](https://ui.adsabs.harvard.edu/public-libraries/yUUKwaFhRVu2DCvZ4A3HXg).
- 
- 
-
+You can find a full list of my publications [here](https://ui.adsabs.harvard.edu/public-libraries/yUUKwaFhRVu2DCvZ4A3HXg) and mention of my research in media [here](/media).
 
 
