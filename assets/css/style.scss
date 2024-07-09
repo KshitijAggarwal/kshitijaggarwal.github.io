@@ -1,0 +1,62 @@
+---
+---
+
+body {
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1, h2, h3 {
+    color: #bb86fc;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+a {
+    color: #bb86fc;  // Keeping the purple for links
+    text-decoration: none;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+ul {
+    padding-left: 20px;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #bb86fc;
+    margin: 20px 0;
+}
+
+.social-links {
+    margin-top: 20px;
+    
+    a {
+        margin-right: 15px;
+        
+        svg {
+            fill: #bb86fc;
+            transition: fill 0.3s ease;
+            width: 24px;
+            height: 24px;
+        }
+        
+        &:hover svg {
+            fill: #ffffff;
+        }
+    }
+}

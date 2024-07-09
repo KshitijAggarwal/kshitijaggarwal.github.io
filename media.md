@@ -1,8 +1,4 @@
----
-layout: page
-title: Media
-permalink: /media/
----
+# Media
 
 ### Press
 * Signals from deep space: WVU students develop AI to detect fast radio bursts ([article](https://wvutoday.wvu.edu/stories/2020/06/23/signals-from-deep-space-wvu-students-develop-ai-to-detect-fast-radio-bursts), [video](https://www.youtube.com/watch?v=T-d1ixk-Y9k&feature=emb_logo))
@@ -19,12 +15,4 @@ permalink: /media/
 * Population synthesis study of MSP spectral indices ([link](https://youtu.be/utmqIw21n-g?t=3471))
 
 ### Teaching 
-Recently, [Devansh](https://devanshkv.github.io/) and I led bi-weekly sessions of chapters from the book [Dive into Deep Learning](https://d2l.ai/) for [Machine Learning Tokyo](https://machinelearningtokyo.com/). We discussed the basic concepts and reimplemented selected models from scratch in PyTorch. All the slides, notebooks and videos of the sessions are linked below and are available on [Github](https://github.com/Machine-Learning-Tokyo/d2l.ai): 
-
-| **Chapter**                 &nbsp; | **Slides**   &nbsp;&nbsp;     | **Notebook**  &nbsp;&nbsp;           | **Video** |
-|------------------------|------------------|--------------------------|
-| [Multilayer Perceptrons &nbsp;](http://d2l.ai/chapter_multilayer-perceptrons/index.html)               | [Slides](https://docs.google.com/presentation/d/13Tw_5Ib5Gu8qEC7VRCu26Hqzos-2ChQiDXI15N2jfK4/edit?usp=sharing)    | [Notebook](https://colab.research.google.com/drive/1c2z3w53sj4CvGe4Jouuj8FdmRsSn682G?usp=sharing) | [![Youtube](https://www.youtube.com/s/desktop/f506bd45/img/favicon_32.png)](https://www.youtube.com/watch?v=Bs9EXRNmnK4) |
-| [Convolutional neural networks &nbsp;&nbsp;](https://d2l.ai/chapter_convolutional-neural-networks/index.html) | [Slides](https://docs.google.com/presentation/d/1LFpKk8Y8-nF8cm6qq6rpt4XPg9Hy-OT0TOFgq0assNA/edit?usp=sharing) | [Notebook](https://colab.research.google.com/drive/1Nt-TV7SxJ2_t1_FekdAhIXOesze1wcXt?usp=sharing) | [![Youtube](https://www.youtube.com/s/desktop/f506bd45/img/favicon_32.png)](https://www.youtube.com/watch?v=9-AhDYsx1CA) |
-| [Recurrent Neural Networks](https://d2l.ai/chapter_recurrent-neural-networks/index.html) | [Slides](https://docs.google.com/presentation/d/1lxCz3TUyMnQgsPQtZozgylsBULFHREPs89IkU6a1mMc/edit?usp=sharing) | [Notebook](https://colab.research.google.com/drive/1-G9YOMZ6stJwO-UxgYtz_44mf1J9wvG1?usp=sharing) | [![Youtube](https://www.youtube.com/s/desktop/f506bd45/img/favicon_32.png)](https://www.youtube.com/watch?v=mGPv5919KiQ) |
-| [Attention Mechanisms 1](https://d2l.ai/chapter_attention-mechanisms/index.html) | [Slides](https://docs.google.com/presentation/d/1BLrhdWkwtchhCKpJas22nP91oNQAuwiXO7JXJyLH3pM/edit?usp=sharing) | [Notebook](https://colab.research.google.com/drive/1PMR2pbXa3zjefLMiJc-j-8Cw2bAEwyva?usp=sharing) | [![Youtube](https://www.youtube.com/s/desktop/f506bd45/img/favicon_32.png)](https://www.youtube.com/watch?v=baEQGk-CTwk) |
-| [Attention Mechanisms 2](https://d2l.ai/chapter_attention-mechanisms/transformer.html) | [Slides](https://docs.google.com/presentation/d/1XZksYxKTNklKqLf84bmaVOBZrHt-5xP_tcm36UUQ338/edit?usp=sharing) | [Notebook](https://colab.research.google.com/drive/1121V9HGWlXsBBMhKN-N6b0HlPD-0ujBR?usp=sharing) | [![Youtube](https://www.youtube.com/s/desktop/f506bd45/img/favicon_32.png)](https://www.youtube.com/watch?v=rRQcS1O58xk) |
+I co-led bi-weekly sessions of chapters from the book [Dive into Deep Learning](https://d2l.ai/) for [Machine Learning Tokyo](https://machinelearningtokyo.com/). We discussed the basic concepts and reimplemented selected models from scratch in PyTorch. All the slides, notebooks and videos of the sessions are available [here](https://github.com/Machine-Learning-Tokyo/d2l.ai).
