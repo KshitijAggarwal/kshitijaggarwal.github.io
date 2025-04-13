@@ -1,6 +1,8 @@
 ---
 ---
 
+@import "syntax-highlighting";
+
 body {
     font-family: Georgia, Times, 'Times New Roman', serif;
     background-color: #121212;
@@ -24,7 +26,7 @@ h2 {
 }
 
 a {
-    color: #bb86fc;  // Keeping the purple for links
+    color: #bb86fc;
     text-decoration: none;
     
     &:hover {
@@ -40,6 +42,80 @@ hr {
     border: 0;
     border-top: 1px solid #bb86fc;
     margin: 20px 0;
+}
+
+/* Simple notes listing */
+.simple-note-listing {
+    margin-top: 2em;
+    
+    ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+    
+    li {
+        margin-bottom: 0.5em;
+    }
+}
+
+/* Note content */
+.note-container {
+    .note-header {
+        margin-bottom: 2em;
+        
+        h1 {
+            margin-bottom: 0.5em;
+        }
+    }
+    
+    .note-content {
+        /* Code blocks */
+        pre {
+            background-color: #1e1e1e;
+            padding: 1em;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #1e1e1e;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+        }
+        
+        /* Images */
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 1em 0;
+            border-radius: 5px;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+            
+            th, td {
+                border: 1px solid #333;
+                padding: 0.5em;
+            }
+            
+            th {
+                background-color: #1e1e1e;
+            }
+        }
+        
+        /* Blockquotes */
+        blockquote {
+            border-left: 3px solid #bb86fc;
+            padding-left: 1em;
+            margin-left: 0;
+            color: #bbb;
+        }
+    }
 }
 
 .social-links {

@@ -3,6 +3,30 @@ description: Data Scientist | PhD in Physics and Astronomy
 markdown: kramdown
 kramdown:
   input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    default_lang: python
+    css_class: 'highlight'
+
+# Sass/SCSS settings
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Collections
+collections:
+  notes:
+    output: true
+    permalink: /notes/:path/
+
+# Default layouts
+defaults:
+  - scope:
+      path: ""
+      type: "notes"
+    values:
+      layout: "note"
+
 exclude:
   - old/
   - Gemfile
@@ -12,5 +36,9 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+  - scripts/
+
+# Keep these directories in the build
+keep_files:
   - _posts/
   - images/
