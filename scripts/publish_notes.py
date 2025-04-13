@@ -7,7 +7,8 @@ This script:
 2. Processes them for Jekyll compatibility
 3. Copies them to the website repository
 4. Handles images and attachments
-5. Implements safety features to prevent accidental publication
+5. Downsizes images to reduce file size
+6. Implements safety features to prevent accidental publication
 
 Usage:
     python publish_notes.py
@@ -21,6 +22,23 @@ import yaml
 import datetime
 import hashlib
 from pathlib import Path
+import subprocess
+
+# Try to import PIL for image processing
+try:
+    from PIL import Image
+    PIL_AVAILABLE = True
+except ImportError:
+    PIL_AVAILABLE = False
+    print("PIL not found. Installing Pillow...")
+    subprocess.call([sys.executable, "-m", "pip", "install", "Pillow"])
+    try:
+        from PIL import Image
+        PIL_AVAILABLE = True
+        print("Pillow installed successfully!")
+    except ImportError:
+        print("Error: Failed to install Pillow. Images will be copied without resizing.")
+        PIL_AVAILABLE = False
 
 # Configuration
 OBSIDIAN_ROOT = "/Users/kshitijaggarwal/Documents/Notes/FRBs"
@@ -28,6 +46,13 @@ WEBSITE_ROOT = "/Users/kshitijaggarwal/Documents/Personal/Website/kshitijaggarwa
 NOTES_DIR = os.path.join(WEBSITE_ROOT, "_notes")
 IMAGES_DIR = os.path.join(WEBSITE_ROOT, "images")
 LOG_FILE = os.path.join(WEBSITE_ROOT, "scripts", "publish_log.txt")
+
+# Image processing settings
+MAX_IMAGE_WIDTH = 1200  # Maximum width in pixels
+MAX_IMAGE_HEIGHT = 1200  # Maximum height in pixels
+JPEG_QUALITY = 80  # JPEG compression quality (0-100)
+PNG_COMPRESSION = 9  # PNG compression level (0-9)
+TARGET_MAX_SIZE_KB = 300  # Target maximum file size in KB
 
 # Regular expression patterns
 FRONTMATTER_PATTERN = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
@@ -85,6 +110,69 @@ def get_destination_path(frontmatter, file_path):
     # Default: use hyphenated filename
     return os.path.join(NOTES_DIR, f"{slug_base_name}.md")
 
+def downsize_image(source_path, destination_path):
+    """Downsample an image to reduce file size while maintaining quality."""
+    if not PIL_AVAILABLE:
+        # If PIL is not available, just copy the image
+        shutil.copy2(source_path, destination_path)
+        return destination_path
+    
+    try:
+        # Check if the file is an image
+        if not source_path.lower().endswith(('.png', '.jpg', '.jpeg')):
+            shutil.copy2(source_path, destination_path)
+            return destination_path
+        
+        # Get the original file size in KB
+        original_size_kb = os.path.getsize(source_path) / 1024
+        
+        # If file is already smaller than target, just copy it
+        if original_size_kb <= TARGET_MAX_SIZE_KB:
+            shutil.copy2(source_path, destination_path)
+            log_message(f"Image already small enough ({original_size_kb:.1f}KB): {os.path.basename(source_path)}")
+            return destination_path
+            
+        # Open the image
+        with Image.open(source_path) as img:
+            # Get original dimensions
+            width, height = img.size
+            
+            # Calculate scale factor if image is larger than max dimensions
+            scale = 1.0
+            if width > MAX_IMAGE_WIDTH or height > MAX_IMAGE_HEIGHT:
+                width_scale = MAX_IMAGE_WIDTH / width if width > MAX_IMAGE_WIDTH else 1.0
+                height_scale = MAX_IMAGE_HEIGHT / height if height > MAX_IMAGE_HEIGHT else 1.0
+                scale = min(width_scale, height_scale)
+                
+                # Calculate new dimensions
+                new_width = int(width * scale)
+                new_height = int(height * scale)
+                
+                # Resize the image
+                img = img.resize((new_width, new_height), Image.LANCZOS)
+            
+            # Save with appropriate settings based on format
+            if source_path.lower().endswith('.jpg') or source_path.lower().endswith('.jpeg'):
+                img.save(destination_path, 'JPEG', quality=JPEG_QUALITY, optimize=True)
+            elif source_path.lower().endswith('.png'):
+                img.save(destination_path, 'PNG', optimize=True, compress_level=PNG_COMPRESSION)
+            else:
+                # For other formats, just save normally
+                img.save(destination_path)
+        
+        # Get the new file size
+        new_size_kb = os.path.getsize(destination_path) / 1024
+        size_reduction = (1 - (new_size_kb / original_size_kb)) * 100
+        
+        log_message(f"Image optimized: {os.path.basename(source_path)} - {original_size_kb:.1f}KB → {new_size_kb:.1f}KB ({size_reduction:.1f}% reduction)")
+        return destination_path
+        
+    except Exception as e:
+        log_message(f"Error downsizing image {source_path}: {str(e)}")
+        # Fallback to simple copy if optimization fails
+        shutil.copy2(source_path, destination_path)
+        return destination_path
+
 def handle_obsidian_images(content, file_path):
     """Process Obsidian image embeds and copy images to website directory."""
     def replace_image(match):
@@ -110,9 +198,9 @@ def handle_obsidian_images(content, file_path):
             image_ext = os.path.splitext(image_path)[1]
             new_image_name = f"{image_hash}{image_ext}"
             
-            # Copy the image to the website images directory
+            # Copy and optimize the image to the website images directory
             destination = os.path.join(IMAGES_DIR, new_image_name)
-            shutil.copy2(image_path, destination)
+            downsize_image(image_path, destination)
             
             # Return markdown image syntax with the new path
             return f"![{os.path.basename(image_path)}](/images/{new_image_name})"
@@ -197,12 +285,74 @@ def publish_note(file_path, frontmatter):
         log_message(f"Error publishing {file_path}: {str(e)}")
         return False
 
+def optimize_existing_images():
+    """Optimize existing images in the website's images directory."""
+    if not PIL_AVAILABLE:
+        print("PIL not available. Skipping optimization of existing images.")
+        return
+
+    print("\nChecking for large images to optimize...")
+    optimized_count = 0
+    skipped_count = 0
+    failed_count = 0
+    
+    for file in os.listdir(IMAGES_DIR):
+        file_path = os.path.join(IMAGES_DIR, file)
+        if not os.path.isfile(file_path):
+            continue
+            
+        if not file.lower().endswith(('.png', '.jpg', '.jpeg')):
+            continue
+            
+        file_size_kb = os.path.getsize(file_path) / 1024
+        if file_size_kb > TARGET_MAX_SIZE_KB:
+            print(f"Optimizing: {file} ({file_size_kb:.1f}KB)")
+            
+            # Create a temporary path for the optimized image
+            temp_path = file_path + ".temp"
+            
+            try:
+                # Optimize the image
+                downsize_image(file_path, temp_path)
+                
+                # Replace the original with the optimized version
+                os.replace(temp_path, file_path)
+                
+                # Get the new file size
+                new_size_kb = os.path.getsize(file_path) / 1024
+                size_reduction = (1 - (new_size_kb / file_size_kb)) * 100
+                
+                print(f"  → Optimized to {new_size_kb:.1f}KB ({size_reduction:.1f}% reduction)")
+                optimized_count += 1
+                
+            except Exception as e:
+                print(f"  → Failed to optimize: {str(e)}")
+                failed_count += 1
+                # Remove the temporary file if it exists
+                if os.path.exists(temp_path):
+                    os.remove(temp_path)
+        else:
+            skipped_count += 1
+    
+    print(f"\nImage optimization complete: {optimized_count} optimized, {skipped_count} already small enough, {failed_count} failed")
+
 def main():
     """Main execution function."""
     print("\n===== Obsidian to Website Publishing Tool =====\n")
     
+    # Check if PIL is available
+    if PIL_AVAILABLE:
+        print("Image optimization is enabled.")
+    else:
+        print("Warning: PIL (Pillow) is not available. Images will not be optimized.")
+    
     # Create necessary directories
     create_directories()
+    
+    # Check for command line arguments
+    if len(sys.argv) > 1 and sys.argv[1] == "--optimize-images-only":
+        optimize_existing_images()
+        return
     
     # Find publishable notes
     publishable_notes = find_publishable_notes()
@@ -232,6 +382,11 @@ def main():
             success_count += 1
     
     print(f"\nPublication complete. {success_count}/{len(publishable_notes)} notes published successfully.")
+    
+    # Ask if user wants to optimize existing images
+    optimize_confirmation = input("\nWould you like to optimize existing images in the website? (yes/no): ")
+    if optimize_confirmation.lower() in ["yes", "y"]:
+        optimize_existing_images()
 
 if __name__ == "__main__":
     main()
